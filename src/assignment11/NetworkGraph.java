@@ -4,6 +4,7 @@
 package assignment11;
 
 import java.io.InputStream;
+import java.util.PriorityQueue;
 
 /**
  * <p>This class represents a graph of flights and airports along with specific
@@ -23,6 +24,9 @@ import java.io.InputStream;
  * @author CS2420 Teaching Staff - Spring 2018
  */
 public class NetworkGraph {
+
+	// Represents Priority Queue that will be used to find best path
+	PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
 	/**
 	 * <p>Constructs a NetworkGraph object and populates it with the information
@@ -97,5 +101,29 @@ public class NetworkGraph {
 	public BestPath getBestPath(String origin, String destination, FlightCriteria criteria, String airliner) {
 		//TODO:
 		return null;
+	}
+
+	private void dijkstra(Airport start, Airport goal) {
+		// initialize all nodes and priority queue
+
+		Airport curr = new Airport();
+
+		PQ.offer(start);
+		while(!PQ.isEmpty()) {
+			curr = PQ.poll();
+
+			if (curr == goal) {
+				return;
+			}
+
+			// TODO: Add visited field to Airport
+			//curr.visited = true;
+
+			for()
+		}
+
+
+
+
 	}
 }
