@@ -5,6 +5,8 @@ package assignment11;
 
 import java.io.InputStream;
 import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>This class represents a graph of flights and airports along with specific
@@ -27,6 +29,8 @@ public class NetworkGraph {
 
 	// Represents Priority Queue that will be used to find best path
 	PriorityQueue<Airport> PQ = new PriorityQueue<>();
+
+	List<Airport> airports = new ArrayList<>();
 
 	/**
 	 * <p>Constructs a NetworkGraph object and populates it with the information
@@ -100,6 +104,12 @@ public class NetworkGraph {
 	 */
 	public BestPath getBestPath(String origin, String destination, FlightCriteria criteria, String airliner) {
 		//TODO:
+		for(Airport airport : airports){
+			if(airport.getLocation().equals(origin)){
+				//pass dikstrajs(airport, destination, criteria, airliner)
+			}
+
+		}
 		return null;
 	}
 
@@ -118,8 +128,6 @@ public class NetworkGraph {
 
 			// TODO: Add visited field to Airport
 			//curr.visited = true;
-
-			for()
 		}
 
 
