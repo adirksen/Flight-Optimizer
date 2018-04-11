@@ -47,7 +47,7 @@ public class NetworkGraph {
 	 */
 	public NetworkGraph(InputStream flightInfo)  {
 		//TODO: Implement a constructor that reads in the file and stores the information
-
+			flightInfo.r
 		// 		appropriately in this object.
 	}
 
