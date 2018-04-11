@@ -4,6 +4,8 @@
 package assignment11;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>This class represents a graph of flights and airports along with specific
@@ -24,6 +26,9 @@ import java.io.InputStream;
  */
 public class NetworkGraph {
 
+	List<Airport> airports = new ArrayList<>();
+
+
 	/**
 	 * <p>Constructs a NetworkGraph object and populates it with the information
 	 * contained in the given file. See the sample files or a randomly generated
@@ -42,6 +47,7 @@ public class NetworkGraph {
 	 */
 	public NetworkGraph(InputStream flightInfo)  {
 		//TODO: Implement a constructor that reads in the file and stores the information
+
 		// 		appropriately in this object.
 	}
 
@@ -96,6 +102,12 @@ public class NetworkGraph {
 	 */
 	public BestPath getBestPath(String origin, String destination, FlightCriteria criteria, String airliner) {
 		//TODO:
+		for(Airport airport : airports){
+			if(airport.getLocation().equals(origin)){
+				//pass dikstrajs(airport, destination, criteria, airliner)
+			}
+
+		}
 		return null;
 	}
 }
