@@ -5,7 +5,7 @@
 *.log
 
 # .idea files
-*.idea
+.idea/
 
 # .iml (intellij module)
 *.iml
