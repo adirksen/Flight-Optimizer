@@ -60,7 +60,7 @@ public class NetworkGraph {
                 Airport newAirport = new Airport(row[0]);
                 if(!airports.contains(newAirport)){
                     newAirport.addFLight(flight);
-                    airports.add(new Airport(row[0]));
+                    airports.add(newAirport);
                 }else{
                     for(Airport airport : airports)
                         if(airport.equals(newAirport)) airport.addFLight(flight);
