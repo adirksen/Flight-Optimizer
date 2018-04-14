@@ -8,112 +8,81 @@ import java.util.List;
  */
 public class Airport {
 
-  private List<Flight> flights = new ArrayList<>();
+  private List<Flight> flights;
 
-  private String airliner, location;
-
-  private double cost, time, cancelled;
-
-  private int delay, distance;
+  private String origin;
 
   private boolean visited;
 
   private Airport previous;
 
-  private FlightCriteria criteria;
+  private String location;
 
 
-  /*--- FIELD SETTERS ---*/
+    public Airport(String origin){
+        this.origin = origin;
+        this.flights = new ArrayList<>();
+
+    }
+
+
+    @Override
+    public boolean equals(Object o){
+        return o instanceof Airport && this.origin.equals(((Airport) o).origin);
+    }
+
+ /*   @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.origin != null ? this.origin.hashCode() : 0);
+        return hash;
+    }*/
+
+
+    /*--- GETTERS AND SETTERS ---*/
+    public List<Flight> getFlights(){
+        return this.flights;
+    }
+
+    public String getLocation() {
+      return this.location;
+    }
+
+    public void setLocation(String location) {
+      this.location = location;
+    }
+
+    public void addFLight(Flight flight){
+        flights.add(flight);
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public Airport getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Airport previous) {
+        this.previous = previous;
+    }
+
+
+
   
-  public void setAirliner(String airliner) {
-    this.airliner = airliner;
-  }
-
-  public void setFlights(List<Flight> flights) {
-    this.flights = flights;
-  }
-
-  public void setLocation(String location) {
-    this.location = location;
-  }
-
-  public void setDelay(int delay) {
-    this.delay = delay;
-  }
-
-  public void setCancelled(double cancelled) {
-    this.cancelled = cancelled;
-  }
-
-  public void setTime(double time) {
-    this.time = time;
-  }
-
-  public void setCost(double cost) {
-    this.cost = cost;
-  }
-
-  public void setPrevious(Airport airport) {
-    this.previous = airport;
-  }
-
-  public void setVisited(boolean state) {
-    this.visited = state;
-  }
-
-  public void setCriteria(FlightCriteria criteria) {
-    this.criteria = criteria;
-  }
-
-  public void setDistance(int distance) {
-    this.distance = distance;
-  }
-
-  /*--- FIELD GETTERS ---*/
-
-  public String getAirliner() {
-    return airliner;
-  }
-
-  public List<Flight> getFlights() {
-    return flights;
-  }
-
-  public String getLocation() {
-    return location;
-  }
-
-  public int getDelay() {
-    return this.delay;
-  }
-
-  public double getCancelled() {
-    return this.cancelled;
-  }
-
-  public double getTime() {
-    return this.time;
-  }
-
-  public double getCost() {
-    return this.cost;
-  }
-
-  public Airport getPrevious() {
-    return this.previous;
-  }
-
-  public boolean getVisited() {
-    return this.visited;
-  }
-
-  public FlightCriteria getCriteria() {
-    return this.criteria;
-  }
-
-  public int getDistance() {
-    return this.distance;
-  }
 
 
 }

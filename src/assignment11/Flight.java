@@ -5,8 +5,19 @@ package assignment11;
  */
 public class Flight {
 
-  private String origin, destination, carrier, delay, cancel, time, distance, cost, airliner;
+  private String origin, destination, carrier, delay, cancel, time, distance, cost;
   private double edgeWeight;
+
+  public Flight(String origin, String destination, String carrier, String delay, String cancel, String time, String distance, String cost){
+      this.origin = origin;
+      this.destination = destination;
+      this.carrier = carrier;
+      this.delay = delay;
+      this.cancel = cancel;
+      this.time = time;
+      this.distance = distance;
+      this.cost = cost;
+  }
 
 
   public double getEdgeWeight(FlightCriteria criteria) {
@@ -66,9 +77,7 @@ public class Flight {
     this.cost = cost;
   }
 
-  public void setAirliner(String airliner) {
-    this.airliner = airliner;
-  }
+
 
   /*--- FIELD GETTERS ---*/
 
@@ -100,7 +109,5 @@ public class Flight {
     return this.cost;
   }
 
-  public String getAirliner() {
-    return this.airliner;
-  }
+
 }
