@@ -26,10 +26,6 @@ import java.util.List;
  * @author CS2420 Teaching Staff - Spring 2018
  */
 public class NetworkGraph {
-
-	// Represents Priority Queue that will be used to find best path
-	PriorityQueue<Airport> PQ = new PriorityQueue<>();
-
 	List<Airport> airports = new ArrayList<>();
 
 	/**
@@ -113,21 +109,32 @@ public class NetworkGraph {
 		return null;
 	}
 
-	private void dijkstra(Airport start, Airport goal) {
+	private void dijkstra(Airport start, Airport goal, FlightCriteria criteria, String airline) {
+		// Represents Priority Queue that will be used to find best path
+		PriorityQueue<Airport> PQ = new PriorityQueue<>();
+
 		// initialize all nodes and priority queue
 
-		Airport curr = new Airport();
+		Airport curr;
+		PQ.add(start);
 
-		PQ.offer(start);
+
 		while(!PQ.isEmpty()) {
 			curr = PQ.poll();
-
-			if (curr == goal) {
+			if (curr.getLocation().compareTo(goal.getLocation()) == 0) {
+				// return because goal found
+				curr.setVisited(true);
+				/**
+				 * for each unvisited neighbor n of curr: {
+				 * if(n.cost > curr.cost + cost(curr, n) {
+				 *     PQ.enqueue(n) || update n's priority
+				 *     n.previous = curr;
+				 *     n.cost = curr.cost + cost(curr, n)
+				 * }
+				 *}
+				 */
 				return;
 			}
-
-			// TODO: Add visited field to Airport
-			//curr.visited = true;
 		}
 
 
