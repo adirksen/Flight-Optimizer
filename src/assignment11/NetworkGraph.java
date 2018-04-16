@@ -1,6 +1,3 @@
-/**
- *
- */
 package assignment11;
 
 import java.io.BufferedReader;
@@ -126,23 +123,33 @@ public class NetworkGraph {
         return null;
     }
 
-    private void dijkstra(Airport start, Airport goal) {
-        // initialize all nodes and priority queue
+  private void dijkstra(Airport start, Airport goal, FlightCriteria criteria, String airline) {
+    // Represents Priority Queue that will be used to find best path
+    PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
-        Airport curr = start;
+    // initialize all nodes and priority queue
 
-        PQ.offer(start);
-        while (!PQ.isEmpty()) {
-            curr = PQ.poll();
+    Airport curr;
+    PQ.add(start);
 
-            if (curr == goal) {
-                return;
-            }
-
-            // TODO: Add visited field to Airport
-            //curr.visited = true;
-        }
-
-
+    while(!PQ.isEmpty()) {
+      curr = PQ.poll();
+      if (curr.getLocation().compareTo(goal.getLocation()) == 0) {
+        // return because goal found
+        curr.setVisited(true);
+        /**
+         * for each unvisited neighbor n of curr: {
+         * if(n.cost > curr.cost + cost(curr, n) {
+         *     PQ.enqueue(n) || update n's priority
+         *     n.previous = curr;
+         *     n.cost = curr.cost + cost(curr, n)
+         * }
+         *}
+         */
+        return;
+      }
     }
+  }
+
+
 }

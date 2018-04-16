@@ -16,6 +16,8 @@ public class Airport {
 
   private Airport previous;
 
+  private String location;
+
 
     public Airport(String origin){
         this.origin = origin;
@@ -40,6 +42,14 @@ public class Airport {
     /*--- GETTERS AND SETTERS ---*/
     public List<Flight> getFlights(){
         return this.flights;
+    }
+
+    public String getLocation() {
+      return this.location;
+    }
+
+    public void setLocation(String location) {
+      this.location = location;
     }
 
     public void addFLight(Flight flight){
