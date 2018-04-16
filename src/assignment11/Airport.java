@@ -18,11 +18,13 @@ public class Airport {
 
   private String location;
 
+  private double cost;
+
 
     public Airport(String origin){
         this.origin = origin;
         this.flights = new ArrayList<>();
-
+        this.cost = Double.MAX_VALUE;
     }
 
 
@@ -81,8 +83,11 @@ public class Airport {
     }
 
 
+    public double getCost() {
+        return cost;
+    }
 
-  
-
-
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 }

@@ -28,7 +28,7 @@ public class NetworkGraph {
     // Represents Priority Queue that will be used to find best path
     PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
-    List<Airport> airports = new ArrayList<>();
+    public Collection<Airport> airports = new HashSet<>();
 
     /**
      * <p>Constructs a NetworkGraph object and populates it with the information
@@ -125,6 +125,8 @@ public class NetworkGraph {
 
   private void dijkstra(Airport start, Airport goal, FlightCriteria criteria, String airline) {
     // Represents Priority Queue that will be used to find best path
+
+      //TODO: Priority queue from java uses natural ordering, not good enough for us, fix
     PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
     // initialize all nodes and priority queue
@@ -134,9 +136,18 @@ public class NetworkGraph {
 
     while(!PQ.isEmpty()) {
       curr = PQ.poll();
-      if (curr.getLocation().compareTo(goal.getLocation()) == 0) {
+      curr.setCost(0);
+      if (curr.getLocation().compareTo(goal.getLocation()) == 0)  return;
         // return because goal found
         curr.setVisited(true);
+        Airport destination;
+        for(Flight flight : curr.getFlights()){
+              destination = cost(flight);
+            if(curr.getCost() + flight.getEdgeWeight(criteria ) < destination.getCost()){
+                destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
+                PQ.add(destination);
+            }
+        }
         /**
          * for each unvisited neighbor n of curr: {
          * if(n.cost > curr.cost + cost(curr, n) {
@@ -146,9 +157,21 @@ public class NetworkGraph {
          * }
          *}
          */
-        return;
-      }
+
     }
+    while(start.getPrevious() != null){
+        //TODO: This wont work yet
+        System.out.print(start.getPrevious());
+        start = start.getPrevious();
+    }
+  }
+
+
+  public Airport cost(Flight flight){
+        for(Airport airport : airports){
+            if(airport.getLocation().equals(flight.getDestination())) return  airport;
+        }
+        return null;
   }
 
 
