@@ -12,11 +12,13 @@ public class Airport {
 
   private String origin;
 
-  private boolean visited;
+  private static boolean visited;
 
   private Airport previous;
 
   private String location;
+
+  private static double weight;
 
 
     public Airport(String origin){
@@ -40,6 +42,15 @@ public class Airport {
 
 
     /*--- GETTERS AND SETTERS ---*/
+
+    public static double getWeight() {
+      return weight;
+    }
+
+    public static void setWeight(double newWeight) {
+      weight = newWeight;
+    }
+
     public List<Flight> getFlights(){
         return this.flights;
     }
@@ -64,12 +75,12 @@ public class Airport {
         this.origin = origin;
     }
 
-    public boolean isVisited() {
+    public static boolean isVisited() {
         return visited;
     }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public static void setVisited(boolean _visited) {
+        visited = _visited;
     }
 
     public Airport getPrevious() {
