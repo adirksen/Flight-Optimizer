@@ -1,12 +1,13 @@
 package assignment11;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents a vertex when finding the best flight path
  */
-public class Airport {
+public class Airport implements Comparable{
 
   private List<Flight> flights;
 
@@ -20,11 +21,13 @@ public class Airport {
 
   private static double weight;
 
+  private double cost;
+
 
     public Airport(String origin){
         this.origin = origin;
         this.flights = new ArrayList<>();
-
+        this.cost = Double.MAX_VALUE;
     }
 
 
@@ -92,8 +95,18 @@ public class Airport {
     }
 
 
+    public double getCost() {
+        return cost;
+    }
 
-  
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 
+    @Override
+    public int compareTo(Object o) {
+        //if(o instanceof Airport)
+            return Double.compare(((Airport) o).cost, this.cost);
 
+    }
 }

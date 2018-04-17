@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 
 /**
@@ -28,7 +30,7 @@ public class NetworkGraph {
   // Represents Priority Queue that will be used to find best path
   PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
-  ArrayList<Airport> airports = new ArrayList<>();
+  public Collection<Airport> airports = new HashSet<>();
 
   /**
    * <p>Constructs a NetworkGraph object and populates it with the information
@@ -41,7 +43,7 @@ public class NetworkGraph {
    * is not. When several of the same flights are reported totals should be added up and then
    * reported as an average or a probability (value between 0-1 inclusive).</p>
    *
-   * @param flightInfo - The InputStream to the flight data. The format is a *.csv(comma separated
+   * @param flightInfo - The inputstream to the flight data. The format is a *.csv(comma separated
    * value) file
    */
   public NetworkGraph(InputStream flightInfo) {
@@ -52,11 +54,12 @@ public class NetworkGraph {
       bufferedReader.readLine(); //Get Rid of header
       while ((line = bufferedReader.readLine()) != null) {
         String[] row = line.split(",");
-        Flight flight = new Flight(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]);
+        Flight flight = new Flight(row[0], row[1], row[2], row[3], row[4], row[5], row[6],
+            row[7]);
         Airport newAirport = new Airport(row[0]);
         if (!airports.contains(newAirport)) {
           newAirport.addFLight(flight);
-          airports.add(new Airport(row[0]));
+          airports.add(newAirport);
         } else {
           for (Airport airport : airports) {
             if (airport.equals(newAirport)) {
@@ -68,8 +71,6 @@ public class NetworkGraph {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    // 		appropriately in this object.
   }
 
   /**
@@ -120,12 +121,6 @@ public class NetworkGraph {
     Airport _destination = new Airport(destination);
 
     return dijkstra(_origin, _destination, criteria, null);
-
-//    Set all airports in path to infinity and set visited to false on each
-//    for (Airport:
-//    airports) { //TODO: Why is this showing infinite loop?
-//      Airport.setWeight(Double.POSITIVE_INFINITY);
-//      Airport.setVisited(false);
   }
 
   /**
@@ -157,27 +152,60 @@ public class NetworkGraph {
 
   private BestPath dijkstra(Airport start, Airport goal, FlightCriteria criteria, String airline) {
     // Represents Priority Queue that will be used to find best path
+
+    //TODO: Priority queue from java uses natural ordering, not good enough for us, fix
     PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
     // initialize all nodes and priority queue
-    Airport curr;
+    Airport curr = null;
     PQ.add(start);
 
     while (!PQ.isEmpty()) {
       curr = PQ.poll();
+      if (curr.isVisited()) {
+        continue;
+      }
+
+      curr.setCost(0);
       if (curr.getLocation().compareTo(goal.getLocation()) == 0) {
-        // return because goal found
-        curr.setVisited(true);
-        /**
-         * for each unvisited neighbor n of curr: {
-         * if(n.cost > curr.cost + cost(curr, n) {
-         *     PQ.enqueue(n) || update n's priority
-         *     n.previous = curr;
-         *     n.cost = curr.cost + cost(curr, n)
-         * }
-         *}
-         */
+        //TODO: Change this so it matches the return-type
         return null;
+      }
+      // return because goal found
+      curr.setVisited(true);
+      Airport destination;
+      for (Flight flight : curr.getFlights()) {
+        destination = cost(flight);
+        if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
+          destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
+          destination.setPrevious(curr);
+          PQ.add(destination);
+        }
+      }
+      /**
+       * for each unvisited neighbor n of curr: {
+       * if(n.cost > curr.cost + cost(curr, n) {
+       *     PQ.enqueue(n) || update n's priority
+       *     n.previous = curr;
+       *     n.cost = curr.cost + cost(curr, n)
+       * }
+       *}
+       */
+    }
+    while (curr != null && curr.getPrevious() != null) {
+      //TODO: This wont work yet
+      System.out.print(curr.getPrevious());
+      curr = curr.getPrevious();
+    }
+    //TODO: Match w/ the return type
+    return null;
+  }
+
+
+  public Airport cost(Flight flight) {
+    for (Airport airport : airports) {
+      if (airport.getLocation().equals(flight.getDestination())) {
+        return airport;
       }
     }
     return null;
