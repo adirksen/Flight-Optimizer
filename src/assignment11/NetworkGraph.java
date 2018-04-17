@@ -94,6 +94,7 @@ public class NetworkGraph {
     public BestPath getBestPath(String origin, String destination, FlightCriteria criteria) {
         //TODO: First figure out what kind of path you need to get (HINT: Use a switch!) then
         //		Search for the shortest path using Dijkstra's algorithm.
+
         return null;
     }
 
@@ -131,11 +132,14 @@ public class NetworkGraph {
 
     // initialize all nodes and priority queue
 
-    Airport curr;
+    Airport curr= null;
     PQ.add(start);
 
     while(!PQ.isEmpty()) {
+
       curr = PQ.poll();
+      if(curr.isVisited()) continue;
+
       curr.setCost(0);
       if (curr.getLocation().compareTo(goal.getLocation()) == 0)  return;
         // return because goal found
@@ -143,8 +147,9 @@ public class NetworkGraph {
         Airport destination;
         for(Flight flight : curr.getFlights()){
               destination = cost(flight);
-            if(curr.getCost() + flight.getEdgeWeight(criteria ) < destination.getCost()){
+            if(curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()){
                 destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
+                destination.setPrevious(curr);
                 PQ.add(destination);
             }
         }
@@ -159,10 +164,10 @@ public class NetworkGraph {
          */
 
     }
-    while(start.getPrevious() != null){
+    while(curr != null && curr.getPrevious() != null){
         //TODO: This wont work yet
-        System.out.print(start.getPrevious());
-        start = start.getPrevious();
+        System.out.print(curr.getPrevious());
+        curr = curr.getPrevious();
     }
   }
 
