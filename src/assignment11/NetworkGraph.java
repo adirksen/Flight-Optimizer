@@ -81,24 +81,30 @@ public class NetworkGraph {
 				
 				if (!airports.containsKey(destinationAirport)) {
 					airports.put(destinationAirport, emptyFlights);
+					destinationAirport = flight.getDestination();
 				} 
 			
 				// If the airport is not in the HashMap, put the flight at the value
 				if (!airports.containsKey(originAirport)) {
 					airports.put(originAirport, flights);
+					originAirport = flight.getDestination();
 				} 
 				// If we encounter a duplicate flight
 				
 				else if (airports.get(originAirport).contains(flight)) {
-					// Calculates the average values for the given flight in relation to the number of vertices
-					flight.DuplicateFlightAverages(flight, airports.size());
+
 					
 					HashSet<Flight> tempAverageFlights = airports.get(originAirport);
 					for(Flight f : tempAverageFlights) {
 						if(f.equals(flight)) {
-							f = flight;
+                            // Calculates the average values for the given flight in relation to the number of vertices
+                            flight.DuplicateFlightAverages(flight, airports.size());
+                            f = flight;
 						}
 					}
+					//airports.get(originAirport).
+					airports.put(originAirport, tempAverageFlights);
+					originAirport = flight.getOrigin();
 					
 				}
 				else {
@@ -189,7 +195,6 @@ public class NetworkGraph {
 		// Determines if the origin or destination are contained in this instance of NetworkGraph. 
 		// If the destination or origin are not contained in this instance, return empty BestPath object
 		if (!(airports.containsKey(_origin) || airports.containsKey(_destination))) {
-			System.out.println("FUCK ME MAN");
 			return best;
 		}
 
@@ -217,10 +222,9 @@ public class NetworkGraph {
 		//System.out.println(start.getOrigin());
 		while (!PQ.isEmpty()) {
 			curr = PQ.poll();
-			System.out.println(curr.getOrigin());
 			//System.out.println(curr.getOrigin());
 			if (curr.equals(goal)) {
-				// TODO: Change this so it matches the return-type
+				// TODO: Change this so it ma8tches the return-type
 				// return because goal found
 				
 				System.out.println("Found It");
@@ -233,10 +237,20 @@ public class NetworkGraph {
 			Iterator<Flight> it = airports.get(curr).iterator();
 			while(it.hasNext()) {
 				Flight flight  =  it.next();
-				destination = flight.getDestination();
+				//Airport destinationTest = flight.getDestination();
+				//destination = new Airport(destinationTest.getFlights(), destinationTest.getOrigin(), destinationTest.isVisited(), destinationTest.getPrevious(), destinationTest.getCost());
+				destination = flightDestination(flight);
+                //destination = flight.getDestination();
+
+                //airports.put(destination, airports.get(destination));
+                airports.replace(destination, airports.get(destination));
+				//Airport airport = flightDestination(flight);
+				//if(flight.getDestination().isVisited() != flightDestination(flight).isVisited())
+				//System.out.println("flight.destination: " + flight.getDestination().isVisited() + " flightDestination(flight): " + flightDestination(flight).isVisited());
 				if (!destination.isVisited()) {
 					if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
 						//System.out.println("Edge : " + flight.getEdgeWeight(criteria));
+                        //.remove(destination);
 						destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
 						destination.setPrevious(curr);
 						PQ.add(destination);
@@ -250,7 +264,7 @@ public class NetworkGraph {
 		
 		ArrayList<String> bestPath = new ArrayList<String>();
 		
-		while (curr != null && curr.getPrevious() != null) {
+		while (curr != null) {
 			// TODO: This wont work yet
 			//System.out.print(curr.getPrevious().getOrigin() + " Cost: " + curr.getCost() + " <- ");
 			bestPath.add(curr.getOrigin());
@@ -271,9 +285,12 @@ public class NetworkGraph {
 	 */
 	public Airport flightDestination(Flight flight) {
 		Iterator<Entry<Airport, HashSet<Flight>>> it = airports.entrySet().iterator();
+		//iterate through every airport
 		while(it.hasNext()) {
 			Map.Entry<Airport, HashSet<Flight>> pair = (Entry<Airport, HashSet<Flight>>)it.next();
-			if(pair.getKey().getOrigin().equals(flight.getDestination())) {
+			//if the airport is the same as the flight destination
+			if(pair.getKey().getOrigin().equals(flight.getDestination().getOrigin())) {
+			    //return the airport
 				return pair.getKey();		
 			}
 		}

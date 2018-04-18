@@ -38,7 +38,7 @@ public class NetworkGraphTest {
         }
     }
 	
-	@Test
+	//@Test
 	public void bestPathCost1() {
 		try {
 			NetworkGraph networkGraph = new NetworkGraph(new FileInputStream(new File("costTestFile.csv")));
@@ -49,7 +49,7 @@ public class NetworkGraphTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void bestPathCost2() {
 		try {
 			NetworkGraph networkGraph = new NetworkGraph(new FileInputStream(new File("costTestFile.csv")));
