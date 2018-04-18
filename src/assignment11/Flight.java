@@ -2,13 +2,17 @@ package assignment11;
 
 /**
  * Represents an edge when finding the best flight path
+ * @param <T>
  */
 public class Flight {
 
-    private String origin, destination, carrier, delay, cancel, time, distance, cost;
+	private Airport origin, destination;
+    private String  carrier, delay, cancel, time, distance, cost;
     private double edgeWeight;
+    
+    private int size;
 
-    public Flight(String origin, String destination, String carrier, String delay, String cancel, String time, String distance, String cost) {
+    public Flight(Airport origin, Airport destination, String carrier, String delay, String cancel, String time, String distance, String cost) {
         this.origin = origin;
         this.destination = destination;
         this.carrier = carrier;
@@ -17,6 +21,7 @@ public class Flight {
         this.time = time;
         this.distance = distance;
         this.cost = cost;
+        this.size = 0;
     }
 
 
@@ -34,8 +39,29 @@ public class Flight {
             case CANCELED:
                 edgeWeight = Double.parseDouble(cancel);
                 break;
+            case PRICE:
+            	edgeWeight = Double.parseDouble(cost);
+            	break;
         }
         return edgeWeight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+    	if(o instanceof Flight) {
+    		return (((Flight) o).getOrigin().equals(this.origin) && ((Flight) o).getDestination().equals(this.destination));
+    	}
+    	return false;
+    }
+    
+    @Override
+    /**
+     *TODO: Cite this shit
+     */
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.origin != null ? this.origin.hashCode() : 0);
+        return hash;
     }
 
 
@@ -45,11 +71,11 @@ public class Flight {
 
     public void setEdgeWeight(float edgeWeight) { this.edgeWeight = edgeWeight; }
 
-    public void setOrigin(String origin) {
+    public void setOrigin(Airport origin) {
         this.origin = origin;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(Airport destination) {
         this.destination = destination;
     }
 
@@ -80,11 +106,11 @@ public class Flight {
 
     /*--- FIELD GETTERS ---*/
 
-    public String getOrigin() {
+    public Airport getOrigin() {
         return this.origin;
     }
 
-    public String getDestination() {
+    public Airport getDestination() {
         return this.destination;
     }
 
@@ -106,6 +132,31 @@ public class Flight {
 
     public String getCost() {
         return this.cost;
+    }
+    
+    
+    /**
+     * Computes averages when a duplicate flight is encountered
+     * @param flight - instance of a duplicate flight
+     * @param currSize - Current size of the HashSet
+     */
+    public void DuplicateFlightAverages(Flight flight, int currSize) {
+    	flight.setDelay(parseAvg(flight.getDelay(), currSize));
+    	flight.setDistance(parseAvg(flight.getDistance(), currSize));
+    	flight.setCancel(parseAvg(flight.getCancel(), currSize));
+    	flight.setTime(parseAvg(flight.getTime(), currSize));
+    	flight.setCost(parseAvg(flight.getCost(), currSize));
+    	
+    }
+    
+    /**
+     * Parses a given String as a double 
+     * @param criteria
+     * @return - average value of given criteria relative to the whole set
+     */
+    private String parseAvg(String criteria, int currSize) {
+    	return Double.toString((Double.parseDouble(criteria) * currSize) + (Double.parseDouble(criteria) / (currSize + 1)));
+    	
     }
 
 

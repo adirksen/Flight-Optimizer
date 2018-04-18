@@ -35,8 +35,8 @@ import java.util.SortedSet;
 public class GenerateFlightData {
 	
 	// ONLY EDIT THESE THREE VARIABLES
-	private static int edgeCount = 15;
-	private static int nodeCount = 5;
+	private static int edgeCount = 45;
+	private static int nodeCount = 15;
 	private static String filePath = "testfile.csv";
 
 	// EDITING ANYTHING BELOW THIS MAY SCREW UP THE CODE SO DO SO AT YOUR OWN RISK.

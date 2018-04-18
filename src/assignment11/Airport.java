@@ -2,22 +2,21 @@ package assignment11;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
  * Represents a vertex when finding the best flight path
  */
-public class Airport implements Comparable{
+public class Airport implements Comparable<Airport>{
 
-  private List<Flight> flights;
+  private HashSet<Flight> flights;
 
   private String origin;
 
-  private static boolean visited;
+  private boolean visited;
 
   private Airport previous;
-
-  private String location;
 
   private static double weight;
 
@@ -26,8 +25,9 @@ public class Airport implements Comparable{
 
     public Airport(String origin){
         this.origin = origin;
-        this.flights = new ArrayList<>();
+        this.flights = new HashSet<>();
         this.cost = Double.MAX_VALUE;
+        this.visited = false;
     }
 
 
@@ -35,13 +35,17 @@ public class Airport implements Comparable{
     public boolean equals(Object o){
         return o instanceof Airport && this.origin.equals(((Airport) o).origin);
     }
-
- /*   @Override
+    
+    
+    @Override
+    /**
+     *TODO: Cite this shit
+     */
     public int hashCode() {
         int hash = 7;
         hash = 17 * hash + (this.origin != null ? this.origin.hashCode() : 0);
         return hash;
-    }*/
+    }
 
 
     /*--- GETTERS AND SETTERS ---*/
@@ -54,16 +58,8 @@ public class Airport implements Comparable{
       weight = newWeight;
     }
 
-    public List<Flight> getFlights(){
+    public HashSet<Flight> getFlights(){
         return this.flights;
-    }
-
-    public String getLocation() {
-      return this.location;
-    }
-
-    public void setLocation(String location) {
-      this.location = location;
     }
 
     public void addFLight(Flight flight){
@@ -78,12 +74,12 @@ public class Airport implements Comparable{
         this.origin = origin;
     }
 
-    public static boolean isVisited() {
-        return visited;
+    public boolean isVisited() {
+        return this.visited;
     }
 
-    public static void setVisited(boolean _visited) {
-        visited = _visited;
+    public void setVisited(boolean _visited) {
+        this.visited = _visited;
     }
 
     public Airport getPrevious() {
@@ -103,10 +99,12 @@ public class Airport implements Comparable{
         this.cost = cost;
     }
 
-    @Override
-    public int compareTo(Object o) {
-        //if(o instanceof Airport)
-            return Double.compare(((Airport) o).cost, this.cost);
 
-    }
+	@Override
+	public int compareTo(Airport o) {
+		// TODO Auto-generated method stub
+        return Double.compare(((Airport) o).cost, this.cost);
+
+	}
+ 
 }
