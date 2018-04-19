@@ -166,8 +166,9 @@ public class Flight {
     carriers.add(flight.getCarrier());
   }
 
-  /*
-     * Parses a given String as a double
+    /**
+     * Parses a given String as a double 
+>>>>>>> 96df488eb0e29168d4df5b36ede4a7ea653dda82
      * @param criteria
      * @return - average value of given criteria relative to the whole set
      */

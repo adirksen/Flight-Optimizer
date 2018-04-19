@@ -36,7 +36,6 @@ public class FindBestPathTester {
 	}
 
 
-
 	@Test
 	public void bestPathDistanceAirlinerExample() {
 		//		// Returns the shortest distance path of flights from SFO to DWF when flying with DL
@@ -48,12 +47,11 @@ public class FindBestPathTester {
 
 	@Test
 	public void bestPathDistanceExample() {
-		//		// Returns the shortest distance path of flights from MOB to ACV
+    //		// Returns the shortest distance path of flights from MOB to ACV
 //		// Solution: a path of ['MOB', 'DFW', 'SFO', 'ACV'] and distance of 2253
-		BestPath shortestDistancePath = airportGraph.getBestPath("MOB", "ACV", FlightCriteria.DISTANCE);
-		System.out.println(shortestDistancePath.toString());
-
-	}
+    BestPath shortestDistancePath = airportGraph.getBestPath("MOB", "ACV", FlightCriteria.DISTANCE);
+    System.out.println(shortestDistancePath.toString());
+  }
 
 	@Test
 	public void bestPathTimeExample() {
