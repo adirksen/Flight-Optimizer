@@ -4,9 +4,9 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 /**
  * <p>An example of how a user will use your best flight API.</p>
  * <p>You will still be required to write JUnit tests to test your program.</p>
@@ -35,14 +35,7 @@ public class FindBestPathTester {
 
 	}
 
-	@Test
-	public void bestPathDistanceExample() {
-		//		// Returns the shortest distance path of flights from MOB to ACV
-//		// Solution: a path of ['MOB', 'DFW', 'SFO', 'ACV'] and distance of 2253
-		BestPath shortestDistancePath = airportGraph.getBestPath("MOB", "ACV", FlightCriteria.DISTANCE);
-		System.out.println(shortestDistancePath.toString());
 
-	}
 
 	@Test
 	public void bestPathDistanceAirlinerExample() {
@@ -50,6 +43,16 @@ public class FindBestPathTester {
 //		// Solution: a path of ['SFO', 'SLC', 'DFW'] and distance of 1588
 			BestPath shortestDistancePath2 = airportGraph.getBestPath("SFO", "DFW", FlightCriteria.DISTANCE, "DL");
 			System.out.println(shortestDistancePath2.toString());
+	}
+
+
+	@Test
+	public void bestPathDistanceExample() {
+		//		// Returns the shortest distance path of flights from MOB to ACV
+//		// Solution: a path of ['MOB', 'DFW', 'SFO', 'ACV'] and distance of 2253
+		BestPath shortestDistancePath = airportGraph.getBestPath("MOB", "ACV", FlightCriteria.DISTANCE);
+		System.out.println(shortestDistancePath.toString());
+
 	}
 
 	@Test

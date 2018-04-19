@@ -25,13 +25,6 @@ public class Airport implements Comparable<Airport>{
         this.cost = Double.MAX_VALUE;
         this.visited = false;
     }
-/*    public Airport(HashSet<Flight> flights, String  origin, boolean visited, Airport previous, double cost){
-        this.flights = flights;
-        this.origin = origin;
-        this.visited = visited;
-        this.previous = previous;
-        this.cost = cost;
-    }*/
 
 
     @Override
@@ -98,9 +91,8 @@ public class Airport implements Comparable<Airport>{
 
 	@Override
 	public int compareTo(Airport o) {
-		// TODO Auto-generated method stub
-        //return Double.compare(((Airport) o).cost, this.cost);
-    return Double.compare(this.cost, ((Airport) o).cost);
+      // return Double.compare(((Airport) o).cost, this.cost);
+        return Double.compare(this.cost, ((Airport) o).cost);
 	}
  
 }

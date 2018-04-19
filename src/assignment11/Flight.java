@@ -69,8 +69,6 @@ public class Flight {
   }
 
 
-
-
   /*--- FIELD SETTERS ---*/
 
   public void setEdgeWeight(float edgeWeight) {
@@ -113,7 +111,7 @@ public class Flight {
   /*--- FIELD GETTERS ---*/
 
   /**
-   * //TODO: Make this my own
+   * //TODO: Javadocs
    * @return
    */
   public HashSet<String> getCarriers() {
@@ -168,21 +166,19 @@ public class Flight {
     carriers.add(flight.getCarrier());
   }
 
-  /**
-   * Parses a given String as a double
-   * @param criteria
-   * @return - average value of given criteria relative to the whole set
-   */
-  private String parseAvg(String criteria, String flightData, int currSize) {
+  /*
+     * Parses a given String as a double
+     * @param criteria
+     * @return - average value of given criteria relative to the whole set
+     */
+    private String parseAvg(String criteria, String flightData, int currSize) {
 
-    double criteriaD = Double.parseDouble(criteria);
-    double flightDataD = Double.parseDouble(flightData);
-    double answer = ((criteriaD * currSize) + flightDataD) / (currSize + 1);
-    return Double.toString(answer);
+        double criteriaD = Double.parseDouble(criteria);
+        double flightDataD = Double.parseDouble(flightData);
+        double answer = ((criteriaD * currSize) + flightDataD) / (currSize + 1);
+    	return Double.toString(answer);
 
-  }
-
-
+    }
 
 
 }
