@@ -1,19 +1,16 @@
 package assignment11;
 
-import java.util.HashSet;
 /**
  * Represents an edge when finding the best flight path
  */
 public class Flight {
 
-  private Airport origin, destination;
-  private String carrier, delay, cancel, time, distance, price;
+  private String origin, destination;
+  private String  carrier, delay, cancel, time, distance, cost;
   private double edgeWeight;
   private int currSize;
-  private HashSet<String> carriers;
 
-  public Flight(Airport origin, Airport destination, String carrier, String delay, String cancel,
-      String time, String distance, String price) {
+  public Flight(String origin, String destination, String carrier, String delay, String cancel, String time, String distance, String cost) {
     this.origin = origin;
     this.destination = destination;
     this.carrier = carrier;
@@ -21,10 +18,8 @@ public class Flight {
     this.cancel = cancel;
     this.time = time;
     this.distance = distance;
-    this.price = price;
-    this.currSize = 1;
-    carriers = new HashSet<>();
-    carriers.add(carrier);
+    this.cost = cost;
+    currSize = 1;
   }
 
 
@@ -43,7 +38,7 @@ public class Flight {
         edgeWeight = Double.parseDouble(cancel);
         break;
       case PRICE:
-        edgeWeight = Double.parseDouble(price);
+        edgeWeight = Double.parseDouble(cost);
         break;
     }
     return edgeWeight;
@@ -51,9 +46,8 @@ public class Flight {
 
   @Override
   public boolean equals(Object o) {
-    if (o instanceof Flight) {
-      return (((Flight) o).getOrigin().equals(this.origin) && ((Flight) o).getDestination()
-          .equals(this.destination));
+    if(o instanceof Flight) {
+      return (((Flight) o).getOrigin().equals(this.origin) && ((Flight) o).getDestination().equals(this.destination));
     }
     return false;
   }
@@ -69,17 +63,17 @@ public class Flight {
   }
 
 
+
+
   /*--- FIELD SETTERS ---*/
 
-  public void setEdgeWeight(float edgeWeight) {
-    this.edgeWeight = edgeWeight;
-  }
+  public void setEdgeWeight(float edgeWeight) { this.edgeWeight = edgeWeight; }
 
-  public void setOrigin(Airport origin) {
+  public void setOrigin(String origin) {
     this.origin = origin;
   }
 
-  public void setDestination(Airport destination) {
+  public void setDestination(String destination) {
     this.destination = destination;
   }
 
@@ -103,26 +97,18 @@ public class Flight {
     this.distance = distance;
   }
 
-  public void setPrice(String price) {
-    this.price = price;
+  public void setCost(String cost) {
+    this.cost = cost;
   }
 
 
   /*--- FIELD GETTERS ---*/
 
-  /**
-   * //TODO: Javadocs
-   * @return
-   */
-  public HashSet<String> getCarriers() {
-    return this.carriers;
-  }
-
-  public Airport getOrigin() {
+  public String  getOrigin() {
     return this.origin;
   }
 
-  public Airport getDestination() {
+  public String getDestination() {
     return this.destination;
   }
 
@@ -142,12 +128,8 @@ public class Flight {
     return this.distance;
   }
 
-  public String getPrice() {
-    return this.price;
-  }
-
-  public String getCarrier() {
-    return this.carrier;
+  public String getCost() {
+    return this.cost;
   }
 
 
@@ -160,26 +142,22 @@ public class Flight {
     this.distance = parseAvg(this.distance, flight.getDistance(), currSize);
     this.cancel = parseAvg(this.cancel, flight.getCancel(),  currSize);
     this.time = parseAvg(this.time, flight.getTime(),  currSize);
-    this.price = parseAvg(this.price, flight.getPrice(), currSize);
+    this.cost = parseAvg(this.cost, flight.getCost(), currSize);
     this.currSize++;
-
-    carriers.add(flight.getCarrier());
   }
 
-    /**
-     * Parses a given String as a double 
->>>>>>> 96df488eb0e29168d4df5b36ede4a7ea653dda82
-     * @param criteria
-     * @return - average value of given criteria relative to the whole set
-     */
-    private String parseAvg(String criteria, String flightData, int currSize) {
+  /**
+   * Parses a given String as a double
+   * @param criteria
+   * @return - average value of given criteria relative to the whole set
+   */
+  private String parseAvg(String criteria, String flightData, int currSize) {
 
-        double criteriaD = Double.parseDouble(criteria);
-        double flightDataD = Double.parseDouble(flightData);
-        double answer = ((criteriaD * currSize) + flightDataD) / (currSize + 1);
-    	return Double.toString(answer);
+    double criteriaD = Double.parseDouble(criteria);
+    double flightDataD = Double.parseDouble(flightData);
+    double answer = ((criteriaD * currSize) + flightDataD) / (currSize + 1);
+    return Double.toString(answer);
 
-    }
-
+  }
 
 }
