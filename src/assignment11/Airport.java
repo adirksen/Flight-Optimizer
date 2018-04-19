@@ -99,8 +99,8 @@ public class Airport implements Comparable<Airport>{
 	@Override
 	public int compareTo(Airport o) {
 		// TODO Auto-generated method stub
-        return Double.compare(((Airport) o).cost, this.cost);
-
+        //return Double.compare(((Airport) o).cost, this.cost);
+    return Double.compare(this.cost, ((Airport) o).cost);
 	}
  
 }
