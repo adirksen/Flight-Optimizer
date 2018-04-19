@@ -59,7 +59,8 @@ public class NetworkGraph {
 	 *            separated value) file
 	 */
 	public NetworkGraph(InputStream flightInfo) {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(flightInfo));
+		InputStreamReader flightArg = new InputStreamReader(flightInfo);
+		BufferedReader bufferedReader = new BufferedReader(flightArg);
 		String line;
 		try {
 			bufferedReader.readLine(); // Get Rid of header
@@ -112,6 +113,7 @@ public class NetworkGraph {
 				}
 
 			}
+			bufferedReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -143,7 +145,7 @@ public class NetworkGraph {
 	 */
 	public BestPath getBestPath(String origin, String destination, FlightCriteria criteria) {
 
-		BestPath best = new BestPath(null, 0.0);
+		BestPath best = new BestPath(new ArrayList<>(), 0);
 
 		if (origin == null || destination == null) {
 			return best;
@@ -157,7 +159,7 @@ public class NetworkGraph {
 			return best;
 		}
 
-		return dijkstra(_origin, _destination, criteria, "");
+		return dijkstra(_origin, _destination, criteria, null);
 	}
 
 	/**
@@ -214,7 +216,7 @@ public class NetworkGraph {
 		// Represents Priority Queue that will be used to find best path
 		
 		PriorityQueue<Airport> PQ = new PriorityQueue<>();
-
+		ArrayList<String> bestPath = new ArrayList<String>();
 		// initialize all nodes and priority queue
 		Airport curr = null;
 		start.setCost(0);
@@ -225,8 +227,8 @@ public class NetworkGraph {
 			//System.out.println(curr.getOrigin());
 			if (curr.equals(goal)) {
 				// TODO: Change this so it ma8tches the return-type
+
 				// return because goal found
-				
 				System.out.println("Found It");
 				goal = curr;
 				break;
@@ -255,14 +257,10 @@ public class NetworkGraph {
 						destination.setPrevious(curr);
 						PQ.add(destination);
 					}
-				} else {
-					continue;
 				}
 			}
 		}
 		//System.out.println("Curr " + curr.getOrigin());
-		
-		ArrayList<String> bestPath = new ArrayList<String>();
 		
 		while (curr != null) {
 			// TODO: This wont work yet

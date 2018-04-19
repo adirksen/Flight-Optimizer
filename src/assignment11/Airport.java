@@ -1,9 +1,6 @@
 package assignment11;
 
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Represents a vertex when finding the best flight path

@@ -2,15 +2,12 @@ package assignment11;
 
 /**
  * Represents an edge when finding the best flight path
- * @param <T>
  */
 public class Flight {
 
 	private Airport origin, destination;
     private String  carrier, delay, cancel, time, distance, cost;
     private double edgeWeight;
-    
-    private int size;
 
     public Flight(Airport origin, Airport destination, String carrier, String delay, String cancel, String time, String distance, String cost) {
         this.origin = origin;
@@ -21,7 +18,6 @@ public class Flight {
         this.time = time;
         this.distance = distance;
         this.cost = cost;
-        this.size = 0;
     }
 
 
@@ -141,11 +137,11 @@ public class Flight {
      * @param currSize - Current size of the HashSet
      */
     public void DuplicateFlightAverages(Flight flight, int currSize) {
-    	flight.setDelay(parseAvg(flight.getDelay(), currSize));
-    	flight.setDistance(parseAvg(flight.getDistance(), currSize));
-    	flight.setCancel(parseAvg(flight.getCancel(), currSize));
-    	flight.setTime(parseAvg(flight.getTime(), currSize));
-    	flight.setCost(parseAvg(flight.getCost(), currSize));
+    	this.delay = parseAvg(flight.getDelay(), currSize);
+    	this.distance = parseAvg(flight.getDistance(), currSize);
+    	this.cancel = parseAvg(flight.getCancel(), currSize);
+    	this.time = parseAvg(flight.getTime(), currSize);
+    	this.cost = parseAvg(flight.getCost(), currSize);
     	
     }
     
@@ -155,8 +151,9 @@ public class Flight {
      * @return - average value of given criteria relative to the whole set
      */
     private String parseAvg(String criteria, int currSize) {
+
     	return Double.toString((Double.parseDouble(criteria) * currSize) + (Double.parseDouble(criteria) / (currSize + 1)));
-    	
+
     }
 
 
