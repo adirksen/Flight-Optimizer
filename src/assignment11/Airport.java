@@ -15,7 +15,6 @@ public class Airport implements Comparable<Airport>{
 
   private Airport previous;
 
-
   private double cost;
 
 
@@ -25,13 +24,6 @@ public class Airport implements Comparable<Airport>{
         this.cost = Double.MAX_VALUE;
         this.visited = false;
     }
-/*    public Airport(HashSet<Flight> flights, String  origin, boolean visited, Airport previous, double cost){
-        this.flights = flights;
-        this.origin = origin;
-        this.visited = visited;
-        this.previous = previous;
-        this.cost = cost;
-    }*/
 
 
     @Override
@@ -52,7 +44,6 @@ public class Airport implements Comparable<Airport>{
 
 
     /*--- GETTERS AND SETTERS ---*/
-
 
     public HashSet<Flight> getFlights(){
         return this.flights;
@@ -85,7 +76,6 @@ public class Airport implements Comparable<Airport>{
     public void setPrevious(Airport previous) {
         this.previous = previous;
     }
-
 
     public double getCost() {
         return cost;

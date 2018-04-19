@@ -35,12 +35,10 @@ import java.util.PriorityQueue;
  * @author CS2420 Teaching Staff - Spring 2018
  */
 public class NetworkGraph {
-
   // Represents Priority Queue that will be used to find best path
   PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
   public HashMap<Airport, HashSet<Flight>> airports = new HashMap<Airport, HashSet<Flight>>();
-
 
   /**
    * <p>
@@ -72,17 +70,12 @@ public class NetworkGraph {
 
         Airport destinationAirport = new Airport(row[1]);
 
-        Flight flight = new Flight(originAirport, destinationAirport, row[2], row[3], row[4],row[5], row[6], row[7]);
+        Flight flight = new Flight(originAirport, destinationAirport, row[2], row[3], row[4],
+            row[5], row[6], row[7]);
 
         HashSet<Flight> flights = new HashSet<>();
-        HashSet<Flight> emptyFlights = new HashSet<>();
 
         flights.add(flight);
-
-
-				/*if (!airports.containsKey(destinationAirport)) {
-					airports.put(destinationAirport, emptyFlights);
-				} */
 
         // If the airport is not in the HashMap, put the flight at the value
         if (!airports.containsKey(originAirport)) {
@@ -91,31 +84,20 @@ public class NetworkGraph {
         }
 
         // If we encounter a duplicate flight
-
         else if (airports.get(originAirport).contains(flight)) {
 
-          //flight.DuplicateFlightAverages(flight, count++);
           HashSet<Flight> tempAverageFlights = airports.get(originAirport);
-          //tempAverageFlights.remove(flight);
 
-          // flight.DuplicateFlightAverages(flight, airports.size());
-          // tempAverageFlights.add(flight);
-          for(Flight f : tempAverageFlights) {
-            if(f.equals(flight)) {
+          for (Flight f : tempAverageFlights) {
+            if (f.equals(flight)) {
               // Calculates the average values for the given flight in relation to the number of vertices
-              // System.out.println(f.getTime());
-
               f.DuplicateFlightAverages(flight);
               break;
-              //  System.out.println(f.getTime());
-
             }
           }
-        }else{
+        } else {
           airports.get(originAirport).add(flight);
         }
-
-
 
       }
       bufferedReader.close();
@@ -155,8 +137,8 @@ public class NetworkGraph {
     Airport _origin = new Airport(origin);
     Airport _destination = new Airport(destination);
     // Determines if the origin or destination are contained in this instance of NetworkGraph.
-    // If the destination or origin are not contained in this instance, return empty BestPath object
     if (!(airports.containsKey(_origin) || airports.containsKey(_destination))) {
+      // If the destination or origin are not contained in this instance, return empty BestPath object
       return best;
     }
 
@@ -189,13 +171,11 @@ public class NetworkGraph {
       return best;
     }
 
-    /*Airport _origin = new Airport(origin);
-		Airport _destination = new Airport(destination);*/
     Airport _origin = findAirportInMap(origin);
     Airport _destination = findAirportInMap(destination);
     // Determines if the origin or destination are contained in this instance of NetworkGraph.
-    // If the destination or origin are not contained in this instance, return empty BestPath object
     if (!(airports.containsKey(_origin) || airports.containsKey(_destination))) {
+      // If the destination or origin are not contained in this instance, return empty BestPath object
       return best;
     }
 
@@ -205,12 +185,12 @@ public class NetworkGraph {
 
   /**
    * //TODO: JavaDocs
-   * @param airport
-   * @return
    */
-  private Airport findAirportInMap(String airport){
-    for ( Airport air : airports.keySet()) {
-      if(air.getOrigin().equals(airport)) return  air;
+  private Airport findAirportInMap(String airport) {
+    for (Airport air : airports.keySet()) {
+      if (air.getOrigin().equals(airport)) {
+        return air;
+      }
     }
     return null;
   }
@@ -228,14 +208,11 @@ public class NetworkGraph {
     Airport curr = null;
     start.setCost(0);
     PQ.add(start);
-    //System.out.println(start.getOrigin());
+
     while (!PQ.isEmpty()) {
       curr = PQ.poll();
-      //System.out.println(curr.getOrigin());
       if (curr.equals(goal)) {
-
-        // return because goal found
-        //System.out.println("Found It");
+        //goal found, set goal to the current node in the PriorityQueue
         goal = curr;
         break;
       }
@@ -243,52 +220,45 @@ public class NetworkGraph {
 
       Airport destination;
       Iterator<Flight> it = airports.get(curr).iterator();
+
       while (it.hasNext()) {
         Flight flight = it.next();
-        //Airport destinationTest = flight.getDestination();
-        //destination = new Airport(destinationTest.getFlights(), destinationTest.getOrigin(), destinationTest.isVisited(), destinationTest.getPrevious(), destinationTest.getCost());
         destination = flightDestination(flight);
 
         airports.replace(destination, airports.get(destination));
-          // If the airliner is a criteria
-          if (airline != null) {
-            // ensure the airliner is the same for the flight
-            if (!destination.isVisited()) {
-              if (flight.getCarriers().contains(airline)) {
-                if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
-                  PQ.add(destination);
-                  destination.setPrevious(curr);
-                  destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
-                } else {
-                  break;
-                }
-              }
-            }
-          } else {
-            if (!destination.isVisited()) {
+        // If the airliner is a criteria
+        if (airline != null) {
+          // ensure the airliner is the same for the flight
+          if (!destination.isVisited()) {
+            if (flight.getCarriers().contains(airline)) {
               if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
                 PQ.add(destination);
                 destination.setPrevious(curr);
                 destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
+              } else {
+                break;
               }
+            }
+          }
+        } else {
+          if (!destination.isVisited()) {
+            if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
+              PQ.add(destination);
+              destination.setPrevious(curr);
+              destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
             }
           }
         }
       }
-      //System.out.println("Curr " + curr.getOrigin());
-
-      while (curr != null) {
-        // TODO: This wont work yet
-        //System.out.print(curr.getPrevious().getOrigin() + " Cost: " + curr.getCost() + " <- ");
-        bestPath.add(curr.getOrigin());
-        curr = curr.getPrevious();
-      }
-
-      Collections.reverse(bestPath);
-
-      return new BestPath(bestPath, goal.getCost());
-
     }
+    while (curr != null) {
+      bestPath.add(curr.getOrigin());
+      curr = curr.getPrevious();
+    }
+    Collections.reverse(bestPath);
+
+    return new BestPath(bestPath, goal.getCost());
+  }
 
   /**
    * Finds the destination airport where the given flight lands

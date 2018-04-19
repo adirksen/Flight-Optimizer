@@ -1,6 +1,7 @@
 package assignment11;
 
 import java.util.HashSet;
+
 /**
  * Represents an edge when finding the best flight path
  */
@@ -59,7 +60,7 @@ public class Flight {
   }
 
   @Override
-  /**
+  /*
    *TODO: Cite this shit
    */
   public int hashCode() {
@@ -67,8 +68,6 @@ public class Flight {
     hash = 17 * hash + (this.origin != null ? this.origin.hashCode() : 0);
     return hash;
   }
-
-
 
 
   /*--- FIELD SETTERS ---*/
@@ -112,56 +111,53 @@ public class Flight {
 
   /*--- FIELD GETTERS ---*/
 
-  /**
-   * //TODO: Make this my own
-   * @return
-   */
-  public HashSet<String> getCarriers() {
+  HashSet<String> getCarriers() {
     return this.carriers;
   }
 
-  public Airport getOrigin() {
+  Airport getOrigin() {
     return this.origin;
   }
 
-  public Airport getDestination() {
+  Airport getDestination() {
     return this.destination;
   }
 
-  public String getDelay() {
+  String getDelay() {
     return this.delay;
   }
 
-  public String getCancel() {
+  String getCancel() {
     return this.cancel;
   }
 
-  public String getTime() {
+  String getTime() {
     return this.time;
   }
 
-  public String getDistance() {
+  String getDistance() {
     return this.distance;
   }
 
-  public String getPrice() {
+  String getPrice() {
     return this.price;
   }
 
-  public String getCarrier() {
+  String getCarrier() {
     return this.carrier;
   }
 
 
   /**
    * Computes averages when a duplicate flight is encountered
+   *
    * @param flight - instance of a duplicate flight
    */
   public void DuplicateFlightAverages(Flight flight) {
     this.delay = parseAvg(this.delay, flight.getDelay(), currSize);
     this.distance = parseAvg(this.distance, flight.getDistance(), currSize);
-    this.cancel = parseAvg(this.cancel, flight.getCancel(),  currSize);
-    this.time = parseAvg(this.time, flight.getTime(),  currSize);
+    this.cancel = parseAvg(this.cancel, flight.getCancel(), currSize);
+    this.time = parseAvg(this.time, flight.getTime(), currSize);
     this.price = parseAvg(this.price, flight.getPrice(), currSize);
     this.currSize++;
 
@@ -170,7 +166,7 @@ public class Flight {
 
   /**
    * Parses a given String as a double
-   * @param criteria
+   *
    * @return - average value of given criteria relative to the whole set
    */
   private String parseAvg(String criteria, String flightData, int currSize) {
@@ -181,8 +177,6 @@ public class Flight {
     return Double.toString(answer);
 
   }
-
-
 
 
 }
