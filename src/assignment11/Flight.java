@@ -50,6 +50,15 @@ public class Flight {
     return edgeWeight;
   }
 
+  public void addToEdgeWeight(Flight flight) {
+    this.time = String.valueOf(Double.valueOf(flight.getTime()) + Double.valueOf(this.time));
+    this.distance = String.valueOf(Double.valueOf(flight.getDistance()) + Double.valueOf(this.distance));
+    this.delay = String.valueOf(Double.valueOf(flight.getDelay()) + Double.valueOf(this.delay));
+    this.cancel = String.valueOf(Double.valueOf(flight.getCancel()) + Double.valueOf(this.cancel));
+    this.price = String.valueOf(Double.valueOf(flight.getPrice()) + Double.valueOf(this.price));
+    currSize++;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o instanceof Flight) {
@@ -111,6 +120,10 @@ public class Flight {
 
   /*--- FIELD GETTERS ---*/
 
+  int getCurrSize() {
+    return this.currSize;
+  }
+
   HashSet<String> getCarriers() {
     return this.carriers;
   }
@@ -153,13 +166,12 @@ public class Flight {
    *
    * @param flight - instance of a duplicate flight
    */
-  public void DuplicateFlightAverages(Flight flight) {
-    this.delay = parseAvg(this.delay, flight.getDelay(), currSize);
-    this.distance = parseAvg(this.distance, flight.getDistance(), currSize);
-    this.cancel = parseAvg(this.cancel, flight.getCancel(), currSize);
-    this.time = parseAvg(this.time, flight.getTime(), currSize);
-    this.price = parseAvg(this.price, flight.getPrice(), currSize);
-    this.currSize++;
+  public void duplicateFlightAverages(Flight flight) {
+    this.delay = parseAvg(this.delay, currSize);
+    this.distance = parseAvg(this.distance, currSize);
+    this.cancel = parseAvg(this.cancel, currSize);
+    this.time = parseAvg(this.time, currSize);
+    this.price = parseAvg(this.price, currSize);
 
     carriers.add(flight.getCarrier());
   }
@@ -169,14 +181,10 @@ public class Flight {
    *
    * @return - average value of given criteria relative to the whole set
    */
-  private String parseAvg(String criteria, String flightData, int currSize) {
-
+  private String parseAvg(String criteria, int currSize) {
     double criteriaD = Double.parseDouble(criteria);
-    double flightDataD = Double.parseDouble(flightData);
-    double answer = ((criteriaD * currSize) + flightDataD) / (currSize + 1);
+    double answer = ((criteriaD) / (currSize));
     return Double.toString(answer);
-
   }
-
 
 }

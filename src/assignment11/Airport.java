@@ -7,8 +7,6 @@ import java.util.HashSet;
  */
 public class Airport implements Comparable<Airport>{
 
-  private HashSet<Flight> flights;
-
   private String origin;
 
   private boolean visited;
@@ -20,7 +18,6 @@ public class Airport implements Comparable<Airport>{
 
     public Airport(String origin){
         this.origin = origin;
-        this.flights = new HashSet<>();
         this.cost = Double.MAX_VALUE;
         this.visited = false;
     }
@@ -44,14 +41,6 @@ public class Airport implements Comparable<Airport>{
 
 
     /*--- GETTERS AND SETTERS ---*/
-
-    public HashSet<Flight> getFlights(){
-        return this.flights;
-    }
-
-    public void addFLight(Flight flight){
-        flights.add(flight);
-    }
 
     public String getOrigin() {
         return origin;

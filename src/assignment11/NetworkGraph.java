@@ -38,7 +38,7 @@ public class NetworkGraph {
   // Represents Priority Queue that will be used to find best path
   PriorityQueue<Airport> PQ = new PriorityQueue<>();
 
-  public HashMap<Airport, HashSet<Flight>> airports = new HashMap<Airport, HashSet<Flight>>();
+  public HashMap<Airport, HashSet<Flight>> airports = new HashMap<>();
 
   /**
    * <p>
@@ -80,7 +80,6 @@ public class NetworkGraph {
         // If the airport is not in the HashMap, put the flight at the value
         if (!airports.containsKey(originAirport)) {
           airports.put(originAirport, flights);
-
         }
 
         // If we encounter a duplicate flight
@@ -91,16 +90,23 @@ public class NetworkGraph {
           for (Flight f : tempAverageFlights) {
             if (f.equals(flight)) {
               // Calculates the average values for the given flight in relation to the number of vertices
-              f.DuplicateFlightAverages(flight);
+              f.addToEdgeWeight(flight);
               break;
             }
           }
         } else {
           airports.get(originAirport).add(flight);
         }
-
       }
       bufferedReader.close();
+      for(Airport airport : airports.keySet()) {
+        for(Flight flight : airports.get(airport)) {
+          if(flight.getCurrSize() > 1) {
+            flight.duplicateFlightAverages(flight);
+          }
+        }
+      }
+
     } catch (IOException e) {
       e.printStackTrace();
     }
