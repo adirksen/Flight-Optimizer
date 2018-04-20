@@ -217,8 +217,11 @@ public class NetworkGraph {
             if (curr == null) {
                 continue;
             }
-            if(curr.getCost() < 0){
+            if(curr.getCost() < 0 && !curr.equals(goal)){
                 continue;
+            }else if(curr.equals(goal)){
+                goal = curr;
+                break;
             }
             if (curr.equals(goal)) {
                 //goal found, set goal to the current node in the PriorityQueue
@@ -231,24 +234,24 @@ public class NetworkGraph {
             Iterator<Flight> it = airports.get(curr).iterator();
 
             while (it.hasNext()) {
-                Flight flight = it.next();
-                destination = flightDestination(flight);
+                Flight flight1 = it.next();
+                destination = flightDestination(flight1);
                 // If destination is not a viable path, go to next node
                 if (destination == null) {
                     continue;
                 }
 
-                airports.replace(destination, airports.get(destination));
+               // airports.replace(destination, airports.get(destination));
 
                 // If the airliner is a criteria
                 if (airline != null) {
                     // ensure the airliner is the same for the flight
                     if (!destination.isVisited()) {
-                        if (flight.getCarriers().contains(airline)) {
-                            if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
+                        if (flight1.getCarriers().contains(airline)) {
+                            if (curr.getCost() + flight1.getEdgeWeight(criteria) < destination.getCost()) {
                                 PQ.add(destination);
                                 destination.setPrevious(curr);
-                                destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
+                                destination.setCost(curr.getCost() + flight1.getEdgeWeight(criteria));
                             } else {
                                 continue;
                             }
@@ -256,10 +259,10 @@ public class NetworkGraph {
                     }
                 } else {
                     if (!destination.isVisited()) {
-                        if (curr.getCost() + flight.getEdgeWeight(criteria) < destination.getCost()) {
+                        if (curr.getCost() + flight1.getEdgeWeight(criteria) < destination.getCost()) {
                             PQ.add(destination);
                             destination.setPrevious(curr);
-                            destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
+                            destination.setCost(curr.getCost() + flight1.getEdgeWeight(criteria));
                         }
                     }
                 }

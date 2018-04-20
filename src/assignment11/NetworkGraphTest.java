@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class NetworkGraphTest {
 
-  @Test
+  //@Test
   public void testConstructor() {
     try {
       NetworkGraph networkGraph = new NetworkGraph(
@@ -27,7 +27,7 @@ public class NetworkGraphTest {
     }
   }
 
-  @Test
+  //@Test
   public void testConstructorSmall() {
     try {
       NetworkGraph networkGraph = new NetworkGraph(new FileInputStream(new File("testfile.csv")));
@@ -62,7 +62,7 @@ public class NetworkGraphTest {
     }
   }
 
-  @Test
+ // @Test
   public void bestPath() {
     try {
       NetworkGraph networkGraph = new NetworkGraph(new FileInputStream(new File("testfile.csv")));
@@ -72,4 +72,24 @@ public class NetworkGraphTest {
     }
 
   }
+	//@Test
+	public void testMEItoPIBCost() {
+		try {
+			NetworkGraph networkGraph = new NetworkGraph(new FileInputStream(new File("flights-2017-q3.csv")));
+			BestPath bestPath = networkGraph.getBestPath("MEI", "PIB", FlightCriteria.PRICE);
+			System.out.println(bestPath.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testDVLtoJMSCost() {
+		try {
+			NetworkGraph networkGraph = new NetworkGraph(new FileInputStream(new File("flights-2017-q3.csv")));
+			BestPath bestPath = networkGraph.getBestPath("DVL", "JMS", FlightCriteria.PRICE);
+			System.out.println(bestPath.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }
