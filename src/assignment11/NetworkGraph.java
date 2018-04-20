@@ -220,12 +220,12 @@ public class NetworkGraph {
             if(curr.getCost() < 0 && !curr.equals(goal)){
                 continue;
             }else if(curr.equals(goal)){
-                goal = curr;
-                break;
+                return new BestPath(new ArrayList<>(), 0);
+
             }
             if (curr.equals(goal)) {
                 //goal found, set goal to the current node in the PriorityQueue
-                goal = curr;
+                //goal = curr;
                 break;
             }
             curr.setVisited(true);
