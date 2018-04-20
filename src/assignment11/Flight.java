@@ -57,6 +57,7 @@ public class Flight {
     this.cancel = String.valueOf(Double.valueOf(flight.getCancel()) + Double.valueOf(this.cancel));
     this.price = String.valueOf(Double.valueOf(flight.getPrice()) + Double.valueOf(this.price));
     currSize++;
+    carriers.add(flight.getCarrier());
   }
 
   @Override
@@ -172,8 +173,6 @@ public class Flight {
     this.cancel = parseAvg(this.cancel, currSize);
     this.time = parseAvg(this.time, currSize);
     this.price = parseAvg(this.price, currSize);
-
-    carriers.add(flight.getCarrier());
   }
 
   /**

@@ -230,8 +230,13 @@ public class NetworkGraph {
       while (it.hasNext()) {
         Flight flight = it.next();
         destination = flightDestination(flight);
+        // If destination is not a viable path, go to next node
+        if(destination == null) {
+          continue;
+        }
 
         airports.replace(destination, airports.get(destination));
+
         // If the airliner is a criteria
         if (airline != null) {
           // ensure the airliner is the same for the flight
@@ -242,7 +247,7 @@ public class NetworkGraph {
                 destination.setPrevious(curr);
                 destination.setCost(curr.getCost() + flight.getEdgeWeight(criteria));
               } else {
-                break;
+                continue;
               }
             }
           }
