@@ -7,13 +7,13 @@ import java.util.HashSet;
  */
 public class Flight {
 
-  private Airport origin, destination;
+  private String origin, destination;
   private String carrier, delay, cancel, time, distance, price;
   private double edgeWeight;
   private int currSize;
   private HashSet<String> carriers;
 
-  public Flight(Airport origin, Airport destination, String carrier, String delay, String cancel,
+  public Flight(String origin, String destination, String carrier, String delay, String cancel,
       String time, String distance, String price) {
     this.origin = origin;
     this.destination = destination;
@@ -86,11 +86,11 @@ public class Flight {
     this.edgeWeight = edgeWeight;
   }
 
-  public void setOrigin(Airport origin) {
+  public void setOrigin(String origin) {
     this.origin = origin;
   }
 
-  public void setDestination(Airport destination) {
+  public void setDestination(String destination) {
     this.destination = destination;
   }
 
@@ -129,11 +129,11 @@ public class Flight {
     return this.carriers;
   }
 
-  Airport getOrigin() {
+  String getOrigin() {
     return this.origin;
   }
 
-  Airport getDestination() {
+  String getDestination() {
     return this.destination;
   }
 
