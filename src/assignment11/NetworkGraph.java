@@ -219,13 +219,13 @@ public class NetworkGraph {
             }
             if(curr.getCost() < 0 && !curr.equals(goal)){
                 continue;
-            }else if(curr.equals(goal)){
+            }else if(curr.equals(goal) && curr.getCost() < 0){
                 return new BestPath(new ArrayList<>(), 0);
 
             }
             if (curr.equals(goal)) {
                 //goal found, set goal to the current node in the PriorityQueue
-                //goal = curr;
+                goal = curr;
                 break;
             }
             curr.setVisited(true);
@@ -252,8 +252,6 @@ public class NetworkGraph {
                                 PQ.add(destination);
                                 destination.setPrevious(curr);
                                 destination.setCost(curr.getCost() + flight1.getEdgeWeight(criteria));
-                            } else {
-                                continue;
                             }
                         }
                     }
