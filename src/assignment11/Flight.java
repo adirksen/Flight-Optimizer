@@ -29,6 +29,12 @@ public class Flight {
   }
 
 
+  /**
+   * Gets the edge weight of the flight given some flight criteria
+   *
+   * @param criteria - Specified by the user and defined in the FlightCriteria class
+   * @return - edgeWeight of the current node.
+   */
   public double getEdgeWeight(FlightCriteria criteria) {
     switch (criteria) {
       case TIME:
@@ -50,9 +56,14 @@ public class Flight {
     return edgeWeight;
   }
 
+  /**
+   * Sums up all the weights for all the criteria Helps with getting an average after reading in all
+   * data
+   */
   public void addToEdgeWeight(Flight flight) {
     this.time = String.valueOf(Double.valueOf(flight.getTime()) + Double.valueOf(this.time));
-    this.distance = String.valueOf(Double.valueOf(flight.getDistance()) + Double.valueOf(this.distance));
+    this.distance = String
+        .valueOf(Double.valueOf(flight.getDistance()) + Double.valueOf(this.distance));
     this.delay = String.valueOf(Double.valueOf(flight.getDelay()) + Double.valueOf(this.delay));
     this.cancel = String.valueOf(Double.valueOf(flight.getCancel()) + Double.valueOf(this.cancel));
     this.price = String.valueOf(Double.valueOf(flight.getPrice()) + Double.valueOf(this.price));
@@ -71,8 +82,12 @@ public class Flight {
 
   @Override
   /*
-   *TODO: Cite this shit
-   */
+   *    Title: Hashcode Override
+   *    Author: Vern
+   *    Date: 2018
+   *    Code version: Now 30 2011
+   *    Availability: https://stackoverflow.com/questions/8322129/arraylists-custom-contains-method
+   ***/
   public int hashCode() {
     int hash = 7;
     hash = 17 * hash + (this.origin != null ? this.origin.hashCode() : 0);
